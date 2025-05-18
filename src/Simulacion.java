@@ -44,6 +44,21 @@ public class Simulacion {
         mostrarDetallesMatricula(console, matricula2);
         mostrarDetallesMatricula(console, matricula3);
         mostrarDetallesMatricula(console, matricula4);
+
+        eda2.cerrarAsignatura();
+        Matricula[] matriculas = { matricula1, matricula2, matricula3, matricula4 };
+        Acta acta = new Acta(eda2, matriculas);
+
+        console.writeln("GENERANDO ACTA", Console.ForegroundColor.WHITE, Console.BackgroundColor.BLACK);
+        console.writeln(acta.toString(), Console.ForegroundColor.CYAN);
+
+        console.writeln("VERIFICANDO INTEGRIDAD DEL ACTA", Console.ForegroundColor.WHITE, Console.BackgroundColor.BLACK);
+        boolean integridadOk = acta.verificarIntegridad();
+        if (integridadOk) {
+            console.writeln("El acta no ha sido manipulada", Console.ForegroundColor.GREEN);
+        } else {
+            console.writeln("¡ALERTA! El acta ha sido manipulada", Console.ForegroundColor.RED);
+        }
     }
 
     private static void mostrarDetallesMatricula(Console console, Matricula matricula) {
