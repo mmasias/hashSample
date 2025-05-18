@@ -1,0 +1,7 @@
+@startuml
+
+Asignatura "1" -- "n" Evaluacion : contiene >
+Matricula "n" -- "1" Alumno : pertenece a >
+Matricula "n" -- "1" Asignatura : refiere a >
+
+@enduml
