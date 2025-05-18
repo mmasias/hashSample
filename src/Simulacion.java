@@ -49,16 +49,57 @@ public class Simulacion {
         Matricula[] matriculas = { matricula1, matricula2, matricula3, matricula4 };
         Acta acta = new Acta(eda2, matriculas);
 
-        console.writeln("GENERANDO ACTA", Console.ForegroundColor.WHITE, Console.BackgroundColor.BLACK);
+        console.writeln("GENERANDO ACTA ORIGINAL", Console.ForegroundColor.WHITE, Console.BackgroundColor.BLACK);
         console.writeln(acta.toString(), Console.ForegroundColor.CYAN);
 
-        console.writeln("VERIFICANDO INTEGRIDAD DEL ACTA", Console.ForegroundColor.WHITE, Console.BackgroundColor.BLACK);
-        boolean integridadOk = acta.verificarIntegridad();
-        if (integridadOk) {
+
+        console.writeln("VERIFICANDO INTEGRIDAD DEL ACTA ORIGINAL", Console.ForegroundColor.WHITE, Console.BackgroundColor.BLACK);
+        boolean integridadInicial = acta.verificarIntegridad();
+        if (integridadInicial) {
             console.writeln("El acta no ha sido manipulada", Console.ForegroundColor.GREEN);
         } else {
             console.writeln("¡ALERTA! El acta ha sido manipulada", Console.ForegroundColor.RED);
         }
+
+        console.writeln("CREANDO UNA COPIA DEL ACTA PARA MANIPULARLA...", Console.ForegroundColor.WHITE, Console.BackgroundColor.BLACK);
+        ActaHackeada actaHackeada = new ActaHackeada(acta);
+
+
+        console.writeln("INTENTANDO HACKEAR LA NOTA DE CARLOS...", Console.ForegroundColor.WHITE, Console.BackgroundColor.BLACK);
+        actaHackeada.hackearNota(1, 9.0);
+
+        console.writeln("ACTA DESPUÉS DE HACKEAR LA NOTA", Console.ForegroundColor.WHITE, Console.BackgroundColor.BLACK);
+        console.writeln(actaHackeada.toString(), Console.ForegroundColor.CYAN);
+
+
+        console.writeln("VERIFICANDO INTEGRIDAD DEL ACTA HACKEADA", Console.ForegroundColor.WHITE, Console.BackgroundColor.BLACK);
+        boolean integridadTrasHackeo = actaHackeada.verificarIntegridad();
+        if (integridadTrasHackeo) {
+            console.writeln("El acta no ha sido manipulada", Console.ForegroundColor.GREEN);
+        } else {
+            console.writeln("¡ALERTA! El acta ha sido manipulada", Console.ForegroundColor.RED);
+        }
+
+        console.writeln("INTENTANDO FALSIFICAR EL HASH PARA OCULTAR LA MANIPULACIÓN...", Console.ForegroundColor.WHITE, Console.BackgroundColor.BLACK);
+        actaHackeada.falsificarHash();
+
+        console.writeln("ACTA CON HASH FALSIFICADO", Console.ForegroundColor.WHITE, Console.BackgroundColor.BLACK);
+        console.writeln(actaHackeada.toString(), Console.ForegroundColor.CYAN);
+
+        console.writeln("VERIFICANDO INTEGRIDAD DEL ACTA CON HASH FALSIFICADO", Console.ForegroundColor.WHITE, Console.BackgroundColor.BLACK);
+        boolean integridadTrasFalsificacion = actaHackeada.verificarIntegridad();
+        if (integridadTrasFalsificacion) {
+            console.writeln("El acta parece estar intacta (¡pero fue manipulada!)", Console.ForegroundColor.GREEN);
+        } else {
+            console.writeln("¡ALERTA! El acta ha sido manipulada", Console.ForegroundColor.RED);
+        }
+
+        console.writeln("COMPARANDO ACTA ORIGINAL Y ACTA HACKEADA", Console.ForegroundColor.WHITE, Console.BackgroundColor.BLACK);
+        console.writeln("Hash original: " + acta.getHash(), Console.ForegroundColor.GREEN);
+        console.writeln("Hash falsificado: " + actaHackeada.getHash(), Console.ForegroundColor.RED);
+        console.writeln("¿Son iguales? " + acta.getHash().equals(actaHackeada.getHash()), 
+                        acta.getHash().equals(actaHackeada.getHash()) ? 
+                        Console.ForegroundColor.GREEN : Console.ForegroundColor.RED);
     }
 
     private static void mostrarDetallesMatricula(Console console, Matricula matricula) {

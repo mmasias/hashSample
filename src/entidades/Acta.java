@@ -4,19 +4,19 @@ import java.time.LocalDate;
 
 public class Acta {
     
-    private final String codigoAsignatura;
-    private final String nombreAsignatura;
-    private final int creditosAsignatura;
+    protected final String codigoAsignatura;
+    protected final String nombreAsignatura;
+    protected final int creditosAsignatura;
     
-    private final LocalDate fecha;
+    protected final LocalDate fecha;
     
-    private final String[] dniAlumnos;
-    private final String[] nombresAlumnos;
-    private final String[] apellidosAlumnos;
-    private final double[] notasFinales;
-    private final boolean[] estadosAprobacion;
+    protected final String[] dniAlumnos;
+    protected final String[] nombresAlumnos;
+    protected final String[] apellidosAlumnos;
+    protected final double[] notasFinales;
+    protected final boolean[] estadosAprobacion;
     
-    private final String hash;
+    protected final String hash;
     
     public Acta(Asignatura asignatura, Matricula[] matriculas) {
         assert(asignatura.estaCerrada()) : "No se puede generar un acta para una asignatura que no está cerrada";
@@ -58,7 +58,7 @@ public class Acta {
         this.hash = generarHash();
     }
     
-    private String generarHash() {
+    protected String generarHash() {
         StringBuilder hashBuilder = new StringBuilder();
         
         for (String nombre : nombresAlumnos) {
